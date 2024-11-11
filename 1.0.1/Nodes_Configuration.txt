@@ -1,0 +1,1 @@
+DC Motor IN_A,DC Motor IN_B,DC Motor IN_A,DC Motor IN_B,Speed Controller,Speed Controller,Analog Sensor,Analog Sensor,None,None,None,None,None,None,None,None,None
