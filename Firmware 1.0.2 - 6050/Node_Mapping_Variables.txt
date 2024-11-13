@@ -1,1 +1,0 @@
-None,None,DC Motor IN_A @A,DC Motor IN_B @B,None,None,DC Motor IN_A @C,DC Motor IN_B @D,None,0,0,None,0,0,None,0,0,None,0,0,None,0,0,None,0,0,None,0,0,None,0,0,None,None,None,None,None,None,None,None,None,None,None,Speed Controller @E,Speed Controller @F,Analog Sensor @G,Analog Sensor @H,None,None

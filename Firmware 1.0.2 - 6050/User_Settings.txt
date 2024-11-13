@@ -1,1 +1,0 @@
-1,0,None,None,None,None,None,None,0.8,0.5,White,Take U-Turn,0,0,Maverick@1,80,192.168.4.1,0.05,1,0,0,Default,20
