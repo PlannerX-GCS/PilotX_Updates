@@ -83,11 +83,9 @@ while True:
         pass
     
     elif distance > target_distance:
-        print("forward")
         robot_forward(left_motor_speed, right_motor_speed)
     
     elif distance <= target_distance:
-        print("detected")
         obstacle_detected()
             
     time.sleep(0.0001)  # Adjust the loop delay for smoother control
