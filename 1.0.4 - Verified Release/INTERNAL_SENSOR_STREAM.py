@@ -86,7 +86,6 @@ def internal_sensor_datas():
         utime.sleep(0.0001)  # Delay for 1 second before the next read
     
     except Exception as e:
-        print(e)
         error_code = int(1)
         pitch = int(0)
         roll = int(0)
