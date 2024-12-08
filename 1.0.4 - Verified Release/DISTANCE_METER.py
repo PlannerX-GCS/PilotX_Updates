@@ -22,7 +22,6 @@ lcd.clear()
 
 while True:
     distance = obstacle_distance()
-    print(distance)
     if distance == -1:
         lcd.putstr(" Distance To Obj" + "   " + str(prev_distance) + " cm")
     else:
