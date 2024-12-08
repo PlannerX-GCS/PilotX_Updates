@@ -7,7 +7,7 @@ elif robot_category() == "1":
     exec(open("/OBSTACLE_AVOIDER.py").read())
     
 elif robot_category() == "2":
-    exec(open("/SELF_BALANCING_ROBOT.py").read())
+    exec(open("/DISTANCE_METER.py").read())
     
 elif robot_category() == "5":
     exec(open("/Codex_Code.py").read())
