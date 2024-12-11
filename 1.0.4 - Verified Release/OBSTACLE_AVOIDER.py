@@ -25,6 +25,16 @@ def obstacle_detected():
     distance = obstacle_distance()
 
     while distance < target_distance:
+         if (str(user_control_method())) == "COM":
+            ax, ay, az, gx, gy, gz, error_code, pitch, roll, tempC, pres_hPa, altitude, battery_voltage = internal_sensor_datas()
+            left_ir_value, right_ir_value, distance, latitude, longitude, satellites = external_sensor_datas()
+            mac_suffix = get_mac_address()
+            
+            data = [ax, ay, az, gx, gy, gz, error_code, pitch, roll, tempC, pres_hPa, altitude,left_ir_value, right_ir_value, distance, latitude, longitude, satellites, battery_voltage, mac_suffix]
+            print(data)
+        
+         elif (str(user_control_method())) == "TelX":
+            send_data()
         
         distance = obstacle_distance()
         
