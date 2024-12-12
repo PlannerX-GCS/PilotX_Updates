@@ -1,5 +1,8 @@
 from ROBOT_CONFIGURATIONS import robot_category
 
+if robot_category() == "-1":
+    pass
+
 if robot_category() == "0":
     exec(open("/LINE_FOLLOWER.py").read())
     
