@@ -2,69 +2,50 @@ from ROBOT_CONFIGURATIONS import *
 from machine import Pin,PWM, time_pulse_us
 import time
 
-#Setting up differences between controlled devices, their upper and lower limits and controlling devices
+LEFT_IR, RIGHT_IR, LEFT_MOTORS, RIGHT_MOTORS, LEFT_MOTOR_SPEED, RIGHT_MOTOR_SPEED, ECHO, TRIGGER, SERVO, RGB_RED, RGB_BLUE, RGB_GREEN, RGB_SINGLE, LDR = robot_node_mapping()
 
-CONTROLLED_DEVICE_DETAILS = [] #Contains all Controlled devices pin numbers and their upper and lower limits
-CONTROLLED_PINS = [] #This will contain only pins numbers from controlled devices to be converted to PWM Pin and excludes any upper or lower servo limit text data
+LEFT_IR_PINS = [machine.Pin(int(pin), machine.Pin.IN) for pin in LEFT_IR if pin]
+RIGHT_IR_PINS = [machine.Pin(int(pin), machine.Pin.IN) for pin in RIGHT_IR if pin]
 
-VEHICLE_CONTROLLER_PINS = [] #Contains Pin Numbers of devices which help in controlling the vehicles
-MODE_SWITCHES = [] #Contains Pin Number of those input devices which help in changing the mode
-CONTROLLER_PINS = [] #This will contain only pins numbers from both vehicle controller pins and mode switches to be converted to PWM Pin
+LEFT_MOTORS_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in LEFT_MOTORS if pin]
+RIGHT_MOTORS_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in RIGHT_MOTORS if pin]
 
-_,VEHICLE_CONTROLLER_PINS, VEHICLE_DEVICE_DETAILS = robot_node_mapping()
-_, MODE_SWITCHES,_ = mode_selection()
+LEFT_MOTOR_SPEED_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in LEFT_MOTOR_SPEED if pin]
+RIGHT_MOTOR_SPEED_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in RIGHT_MOTOR_SPEED if pin]
 
-#Final Controller Pins & Controlled Pins
+ECHO_PINS = [machine.Pin(int(pin), machine.Pin.IN) for pin in ECHO if pin]
+TRIGGER_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in TRIGGER if pin]
 
-CONTROLLER_PINS = VEHICLE_CONTROLLER_PINS + MODE_SWITCHES
+SERVO_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in SERVO if pin]
 
-CONTROLLED_PINS = [VEHICLE_DEVICE_DETAILS[0], VEHICLE_DEVICE_DETAILS[1], VEHICLE_DEVICE_DETAILS[2], VEHICLE_DEVICE_DETAILS[3], VEHICLE_DEVICE_DETAILS[4], VEHICLE_DEVICE_DETAILS[5], VEHICLE_DEVICE_DETAILS[6], VEHICLE_DEVICE_DETAILS[7], VEHICLE_DEVICE_DETAILS[8], VEHICLE_DEVICE_DETAILS[11], VEHICLE_DEVICE_DETAILS[14], VEHICLE_DEVICE_DETAILS[17], VEHICLE_DEVICE_DETAILS[20], VEHICLE_DEVICE_DETAILS[23], VEHICLE_DEVICE_DETAILS[26], VEHICLE_DEVICE_DETAILS[29], VEHICLE_DEVICE_DETAILS[32], VEHICLE_DEVICE_DETAILS[33], VEHICLE_DEVICE_DETAILS[34]]
+RGB_RED_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in RGB_RED if pin]
+RGB_BLUE_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in RGB_BLUE if pin]
+RGB_GREEN_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in RGB_GREEN if pin]
+RGB_SINGLE_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in RGB_SINGLE if pin]
 
-CONTROLLER_PINS_WITHOUT_NONE = []
-CONTROLLED_PINS_WITHOUT_NONE = []
+LDR_PINS = [machine.Pin(int(pin), machine.Pin.IN) for pin in LDR if pin]
 
-flag = 0
+SPEED_PIN_LEFT = PWM(LEFT_MOTOR_SPEED_PINS) if LEFT_MOTOR_SPEED_PINS else None
+SPEED_PIN_RIGHT = PWM(RIGHT_MOTOR_SPEED_PINS) if RIGHT_MOTOR_SPEED_PINS else None
 
-for CONTROLLER_PIN in CONTROLLER_PINS:
-    if CONTROLLER_PIN == "NA" or CONTROLLER_PIN == "None":
-        CONTROLLER_PINS_WITHOUT_NONE.append(int(28))
-    else:
-        CONTROLLER_PINS_WITHOUT_NONE.append(int(str(CONTROLLER_PIN)[-2:]))
-        
-        
-for CONTROLLED_PIN in CONTROLLED_PINS:
-    if CONTROLLED_PIN == "NA" or CONTROLLED_PIN == "None":
-        CONTROLLED_PINS_WITHOUT_NONE.append(int(28))
-    else:
-        CONTROLLED_PINS_WITHOUT_NONE.append(int(str(CONTROLLED_PIN)[-2:]))        
+if SPEED_PIN_LEFT:
+    SPEED_PIN_LEFT.freq(1000)
 
-ALL_CONTROLLERS = [machine.Pin(pin, machine.Pin.IN) for pin in CONTROLLER_PINS_WITHOUT_NONE] #All controller pins including mode switch pins converted to PWM Pin Number style
-ALL_CONTROLLED = [machine.Pin(pin, machine.Pin.OUT) for pin in CONTROLLED_PINS_WITHOUT_NONE] #All controlled pins converted to PWM Pin Number style
-
-
-pwm_values = [1500] * len(ALL_CONTROLLERS + ALL_CONTROLLED)  # Assuming a neutral position
-
-SPEED_PIN_LEFT = PWM(Pin(ALL_CONTROLLED[16]))
-SPEED_PIN_RIGHT = PWM(Pin(ALL_CONTROLLED[17]))
-
-SPEED_PIN_LEFT.freq(1000)
-SPEED_PIN_RIGHT.freq(1000)
+if SPEED_PIN_RIGHT:
+    SPEED_PIN_RIGHT.freq(1000)
 
 def robot_forward(left_speed, right_speed):
-    ALL_CONTROLLED[0].high()
-    ALL_CONTROLLED[1].low()
+    LEFT_MOTORS_PINS[0].high()
+    LEFT_MOTORS_PINS[1].low()
     
-    ALL_CONTROLLED[2].high()
-    ALL_CONTROLLED[3].low()
-    
-    ALL_CONTROLLED[4].high()
-    ALL_CONTROLLED[5].low()
-    
-    ALL_CONTROLLED[6].high()
-    ALL_CONTROLLED[7].low()
-    
-    SPEED_PIN_LEFT.duty_u16(int(left_speed*65535))
-    SPEED_PIN_RIGHT.duty_u16(int(right_speed*65535))
+    RIGHT_MOTORS_PINS[0].high()
+    RIGHT_MOTORS_PINS[1].low()
+
+    if SPEED_PIN_LEFT:
+        SPEED_PIN_LEFT.duty_u16(int(left_speed*65535))
+
+    if SPEED_PIN_RIGHT:
+        SPEED_PIN_RIGHT.duty_u16(int(right_speed*65535))
 
 
 def robot_reverse(left_speed, right_speed):
