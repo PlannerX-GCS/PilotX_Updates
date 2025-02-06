@@ -20,6 +20,8 @@ lcd.putstr("  Initialising       Sensor")
 sleep(2)
 lcd.clear()
 
+prev_distance = 0
+
 while True:
     distance = obstacle_distance()
     if distance == -1:
@@ -30,4 +32,5 @@ while True:
     sleep(0.2)
     lcd.clear()
     
+
 
