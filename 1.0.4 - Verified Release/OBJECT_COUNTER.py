@@ -24,10 +24,13 @@ count = 0
 
 while True:
     val = read_right_ir()
-    if val == 0:
+    val2 = read_left_ir()
+    
+    if val == 0 or val2 == 0:
         count = count + 1
     else:
         count = count
+        
     lcd.putstr(" Objects Passed" + "        " + str(count))
     sleep(0.2)
     lcd.clear()
