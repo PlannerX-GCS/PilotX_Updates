@@ -123,9 +123,10 @@ def run_right_motors_only(left_speed, right_speed):
     if SPEED_PIN_RIGHT:
         SPEED_PIN_RIGHT.duty_u16(int(right_speed*65535))
 
-    
+base_speed, turn_speed = user_set_speeds()
+
 def move_servo(angle): 
-            set_servo_angle(machine.PWM(machine.Pin(SERVO_PINS[0])), angle, left_speed, right_speed)
+            set_servo_angle(machine.PWM(machine.Pin(SERVO_PINS[0])), angle, base_speed, turn_speed)
             
 def read_left_ir():
     left_ir_value = LEFT_IR_PINS[0].value()
