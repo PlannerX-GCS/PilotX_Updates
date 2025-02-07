@@ -44,31 +44,31 @@ def robot_node_mapping():
             elif str(value)[-1:] in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]:
                 port_number = reference[str(value)[-1:]]
             
-                if "Left_IR" in value:
+                if "Left IR" in value:
                     LEFT_IR.append(port_number)
-                elif "Right_IR" in value:
+                elif "Right IR" in value:
                     RIGHT_IR.append(port_number)
-                elif "Left_DC" in value:
+                elif "Left DC" in value:
                     LEFT_MOTORS.append(port_number)
-                elif "Right_DC" in value:
+                elif "Right DC" in value:
                     RIGHT_MOTORS.append(port_number)
-                elif "Left_Motor_Speed" in value:
+                elif "Left DC Motor Speed" in value:
                     LEFT_MOTOR_SPEED.append(port_number)
-                elif "Right_Motor_Speed" in value:
+                elif "Right DC Motor Speed" in value:
                     RIGHT_MOTOR_SPEED.append(port_number)
                 elif "Echo" in value:
                     ECHO.append(port_number)
-                elif "Trigger" in value:
+                elif "Trig" in value:
                     TRIGGER.append(port_number)
                 elif "Servo" in value:
                     SERVO.append(port_number)
-                elif "RGB_Red" in value:
+                elif "RGB Red" in value:
                     RGB_RED.append(port_number)
-                elif "RGB_Blue" in value:
+                elif "RGB Blue" in value:
                     RGB_BLUE.append(port_number)
-                elif "RGB_Green" in value:
+                elif "RGB Green" in value:
                     RGB_GREEN.append(port_number)
-                elif "RGB_Single" in value:
+                elif "RGB Single" in value:
                     RGB_SINGLE.append(port_number)
                 elif "LDR" in value:
                     LDR.append(port_number)
