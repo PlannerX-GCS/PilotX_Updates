@@ -25,8 +25,6 @@ RGB_SINGLE_PINS = [machine.Pin(int(pin), machine.Pin.OUT) for pin in RGB_SINGLE 
 
 LDR_PINS = [machine.Pin(int(pin), machine.Pin.IN) for pin in LDR if pin]
 
-print(LEFT_MOTOR_SPEED_PINS)
-
 SPEED_PIN_LEFT = PWM(LEFT_MOTOR_SPEED_PINS[0]) if LEFT_MOTOR_SPEED_PINS else None
 SPEED_PIN_RIGHT = PWM(RIGHT_MOTOR_SPEED_PINS[0]) if RIGHT_MOTOR_SPEED_PINS else None
 
