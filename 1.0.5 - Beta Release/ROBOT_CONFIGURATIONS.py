@@ -32,7 +32,7 @@ def robot_node_mapping():
     reference = {"A":7, "B":8, "C":9, "D":10, "E":11, "F":12, "G":13, "H":2, "I":3, "J":4, "K":5, "L":6, "M":22}
 
     # Open the file and read lines
-    with open('Node_Mapping_Variables.txt', 'r') as file:
+    with open('Nodes_Configuration.txt', 'r') as file:
         lines = file.readlines()
         
     # Extract values from each line and populate the dictionary
